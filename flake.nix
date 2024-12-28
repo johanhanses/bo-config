@@ -1,9 +1,10 @@
 {
-  description = "Home Manager configuration of johanhanses";
+  description = "Home Manager configuration of johanhanses on ubuntu 24.10";
 
   inputs = {
-    # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    catppuccin.url = "github:catppuccin/nix";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -11,7 +12,7 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = { nixpkgs, catppuccin, home-manager, ... }:
     let
       system = "aarch64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -19,16 +20,17 @@
       homeConfigurations."johanhanses" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [ 
-	  ./home.nix
-	  ./modules/neovim.nix
-	  ./modules/git.nix
-	];
+        modules = [
+          ./home.nix
+          # ./modules/neovim.nix
+          # ./modules/git.nix
+          # catppuccin.homeManagerModules.catppuccin
+        ];
 
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
+        extraSpecialArgs = {
+          # Add extra arguments to home.nix
+          catppuccin.homeManagerModules.catppuccin.enable = true;
+        };
       };
     };
 }
