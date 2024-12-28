@@ -22,14 +22,12 @@
 
         modules = [
           ./home.nix
-          # ./modules/neovim.nix
-          # ./modules/git.nix
-          # catppuccin.homeManagerModules.catppuccin
+          catppuccin.homeManagerModules.catppuccin
         ];
 
         extraSpecialArgs = {
           # Add extra arguments to home.nix
-          catppuccin.homeManagerModules.catppuccin.enable = true;
+          # catppuccin.homeManagerModules.catppuccin.enable = true;
         };
       };
     };
