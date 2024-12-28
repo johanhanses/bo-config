@@ -2,13 +2,13 @@
 
 {
   imports = [
-    # ./modules/packages.nix
+    ./modules/packages.nix
     ./modules/git.nix
-    # ./modules/zsh.nix
-    # ./modules/starship.nix
-    # ./modules/ssh.nix
+    ./modules/zsh.nix
+    ./modules/starship.nix
+    ./modules/ssh.nix
     ./modules/neovim.nix
-    # ./modules/fzf.nix
+    ./modules/fzf.nix
   ];
 
   home.username = "johanhanses";
@@ -17,6 +17,5 @@
   home.stateVersion = "24.11";
 
   programs.home-manager.enable = true;
-  programs.starship.enable = true;
-  programs.zsh.enable = true;
+  programs.eza.enable = true;
 }
