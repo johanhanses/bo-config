@@ -1,12 +1,32 @@
-{ config, pkgs, ... }:
+{ config, catppuccin, pkgs, ... }:
 {
   programs.zsh = {
     enable = true;
+    dotDir = ".config/zsh";
 
-    syntaxHighlighting.enable = true;
+    # enableCompletion = true;
     autosuggestion.enable = true;
+    syntaxHighlighting = {
+      enable = true;
+      catppuccin.enable = true;
+    };
+
+    history = {
+      save = 10000;
+      size = 10000;
+      path = "$HOME/.cache/zsh_history";
+    };
 
     initExtra = ''
+      bindkey '^[[1;5C' forward-word # Ctrl+RightArrow
+      bindkey '^[[1;5D' backward-word # Ctrl+LeftArrow
+
+      zstyle ':completion:*' completer _complete _match _approximate
+      zstyle ':completion:*:match:*' original only
+      zstyle ':completion:*:approximate:*' max-errors 1 numeric
+      zstyle ':completion:*' menu select
+      zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
+
       # Enable proper UTF-8 support
       export LANG=en_US.UTF-8
       export LC_ALL=en_US.UTF-8
@@ -48,6 +68,7 @@
 
     shellAliases = {
       rebuild = "home-manager switch --flake ~/bo-config#johanhanses";
+
       repos = "cd $REPOS";
       ghrepos = "cd $GHREPOS";
       dot = "cd $GHREPOS/dotfiles";
@@ -61,24 +82,33 @@
       backend = "cd $REPOS/github.com/Digital-Tvilling/deployment-configuration/external/localhost";
       dti = "cd $REPOS/github.com/Digital-Tvilling/dti";
       sb = "cd $SECOND_BRAIN";
-      # in = "cd $SECOND_BRAIN/0\ Inbox";
       config = "cd $XDG_CONFIG_HOME";
       sysfig = "cd $HOME/bo-config";
       windows = "cd /mnt/c/Users/johanhanses";
-      szr = "source ~/.zshrc";
+
       cat = "bat";
       fast = "fast -u --single-line";
+
+      htop = "btm -b";
+      neofetch = "fastfetch";
+
       nv = "nvim";
-      # .. = " c d ..";
+
       c = "clear";
+
       n = "npm";
       nr = "npm run";
       ns = "npm start";
+
       ls = "ls --color=auto";
       ll = "eza -l -a -a -g --group-directories-first --show-symlinks --icons=always";
       l = "eza -l -g --group-directories-first --show-symlinks --icons=always";
       la = "ls -lathr";
+
+      tree = "eza --tree";
+
       e = "exit";
+
       gm = "git checkout main && git pull";
       gd = "git diff";
       gp = "git push";
@@ -88,12 +118,16 @@
       gcb = "git checkout -b";
       gcm = "git cz";
       wip = "git commit -m 'wip' --no-verify";
+
       lg = "lazygit";
+
       k = "kubectl";
+
       t = "tmux";
       tk = "tmux kill-server";
       tl = "tmux ls";
       ta = "tmux a";
+
       d = "docker";
       dc = "docker compose";
     };

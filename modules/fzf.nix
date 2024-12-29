@@ -1,15 +1,23 @@
-{ config, pkgs, ... }:
-{
+_: {
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
-    defaultCommand = "rg --files --hidden --follow";
+    catppuccin.enable = true;
+
+    changeDirWidgetOptions = [ "--preview 'tree -C {} | head -200'" ];
+
+    defaultCommand = "rg --files";
     defaultOptions = [
-      "--height 40%"
-      "--layout=reverse"
+      "--height 90%"
       "--border"
-      "--margin=1"
-      "--padding=1"
     ];
+
+    fileWidgetCommand = "rg --files";
+    fileWidgetOptions = [
+      "--preview 'bat -n --color=always {}'"
+      "--bind 'ctrl-/:change-preview-window(down|hidden|)'"
+    ];
+
+    tmux.enableShellIntegration = true;
   };
 }
