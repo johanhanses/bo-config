@@ -4,26 +4,18 @@ _: {
 
     tmux = {
       enable = true;
-      catppuccin.enable = true;
 
       aggressiveResize = true;
       baseIndex = 1;
       clock24 = true;
       sensibleOnTop = true;
-      # This should either be screen-256color or tmux-256color where it exists
       terminal = "tmux-256color";
 
       extraConfig = ''
         set -g status on
         set -g mouse on
 
-        # Where this shows 'alacritty' - the value should be whatever $TERM is outside tmux
-        # set-option -ga terminal-overrides ",alacritty:Tc"
         set -ag terminal-overrides ",tmux-256color:RGB"
-
-        # Catppuccin options
-        set -g @catppuccin_host 'on'
-        set -g @catppuccin_window_tabs_enabled 'on'
 
         # new pane path
         bind | split-window -h -c "#{pane_current_path}"
@@ -49,7 +41,7 @@ _: {
         set -g renumber-windows on
 
         # Allow tmux to set the terminal title
-        set -g set-titles on
+        # set -g set-titles on
 
         # Monitor window activity to display in the status bar
         setw -g monitor-activity on
@@ -71,9 +63,26 @@ _: {
         unbind r
         bind r source-file ~/.config/tmux/tmux.conf\; display-message '~/.tmux.conf reloaded'
 
-        # # rename panes to current working directory
+        # rename panes to current working directory
         set-option -g automatic-rename on
         set-option -g automatic-rename-format '#{b:pane_current_path}'
+
+
+        # Catppuccin options
+        set -g @catppuccin_flavor "macchiato"
+        set -g @catppuccin_status_background "none"
+        set -g @catppuccin_host "off"
+        set -g @catppuccin_window_text " #{b:pane_current_path}"
+        set -g @catppuccin_window_current_text " #{b:pane_current_path}"
+
+        # Make the status line more pleasant.
+        set -g status-left ""
+        set -g status-right '#[fg=#{@thm_crust},bg=#{@thm_teal}] #{user}@#T '
+
+        # Ensure that everything on the right side of the status line
+        # is included.
+        set -g status-right-length 100
+
       '';
     };
   };

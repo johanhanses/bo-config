@@ -9,9 +9,8 @@
     ./modules/ssh.nix
     ./modules/neovim.nix
     ./modules/fzf.nix
-    ./modules/bat.nix
-    ./modules/bottom.nix
     ./modules/tmux.nix
+    ./modules/catppuccin.nix
   ];
 
   home = {
@@ -30,4 +29,6 @@
 
   programs.home-manager.enable = true;
   programs.eza.enable = true;
+  programs.bottom.enable = true;
+  programs.bat.enable = true;
 }

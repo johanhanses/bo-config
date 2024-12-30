@@ -1,9 +1,8 @@
-{ pkgs, catppuccin,  ... }:
+{ pkgs, ... }:
 {
   programs.neovim = {
     enable = true;
     package = pkgs.neovim-unwrapped;
-    catppuccin.enable = true;
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;

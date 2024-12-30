@@ -2,7 +2,6 @@ _: {
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
-    catppuccin.enable = true;
 
     changeDirWidgetOptions = [ "--preview 'tree -C {} | head -200'" ];
 

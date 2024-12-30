@@ -1,4 +1,4 @@
-{ config, catppuccin, pkgs, ... }:
+{ config, pkgs, ... }:
 {
   programs.zsh = {
     enable = true;
@@ -6,10 +6,7 @@
 
     # enableCompletion = true;
     autosuggestion.enable = true;
-    syntaxHighlighting = {
-      enable = true;
-      catppuccin.enable = true;
-    };
+    syntaxHighlighting.enable = true;
 
     history = {
       save = 10000;
